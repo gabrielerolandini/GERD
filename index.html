@@ -47,7 +47,7 @@
 
         // Abilita il form dopo il clic sul bottone Amazon
 document.getElementById("amazonButton").addEventListener("click", function() {
-     window.location.href = "https://www.amazon.com/review/create-review?asin=YOUR-ASIN";
+    window.open("https://www.amazon.com/review/create-review?asin=YOUR-ASIN", "_blank");
     setTimeout(() => {
         document.getElementById("amazonName").disabled = false;
         document.getElementById("submitButton").disabled = false;
