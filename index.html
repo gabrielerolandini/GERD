@@ -35,52 +35,55 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Ottieni l'email dall'URL e memorizzala nel campo hidden
-            const params = new URLSearchParams(window.location.search);
-            const email = params.get("email");
-            if (email) {
-                document.getElementById("email").value = decodeURIComponent(email);
-            }
-        });
+     document.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get("email");
+
+    if (email) {
+        document.getElementById("email").value = decodeURIComponent(email);
+    }
+});
 
         // Abilita il form dopo il clic sul bottone Amazon
-        document.getElementById("amazonButton").addEventListener("click", function() {
-            window.open("https://www.amazon.com/review/create-review?asin=YOUR-ASIN", "_blank");
+document.getElementById("amazonButton").addEventListener("click", function() {
+    window.open("https://www.amazon.com/review/create-review?asin=YOUR-ASIN", "_blank");
 
-            setTimeout(() => {
-                document.getElementById("amazonName").disabled = false;
-                document.getElementById("submitButton").disabled = false;
-            }, 3000);
-        });
+    setTimeout(() => {
+        document.getElementById("amazonName").disabled = false;
+        document.getElementById("submitButton").disabled = false;
+    }, 3000);
+});
 
-        // Invia i dati a Make e reindirizza alla pagina di ringraziamento
-        document.getElementById("bonusForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+// Invia i dati a Make e verifica che il campo email sia effettivamente presente
+document.getElementById("bonusForm").addEventListener("submit", function(event) {
+    event.preventDefault();
 
-            const amazonName = document.getElementById("amazonName").value;
-            const email = document.getElementById("email").value;
+    const amazonName = document.getElementById("amazonName").value;
+    const emailField = document.getElementById("email");
+    const email = emailField ? emailField.value : "";
 
-            fetch("https://hook.eu2.make.com/YOUR_WEBHOOK_URL", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    amazonName: amazonName,
-                    email: email
-                })
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Reindirizza alla pagina di ringraziamento dopo l'invio
-                    window.location.href = "thank-you.html";
-                } else {
-                    alert("Something went wrong. Please try again.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
-        });
+    if (!email) {
+        alert("Error: Email is missing!");
+        return;
+    }
+
+    fetch("https://hook.eu2.make.com/YOUR_WEBHOOK_URL", { 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            amazonName: amazonName,
+            email: email
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = "thank-you.html";
+        } else {
+            alert("Something went wrong. Please try again.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+});
     </script>
 
 </body>
