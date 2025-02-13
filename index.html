@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Your Bonuses</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Enjoying <i>The GERD Diet Cookbook</i>? 🎉</h1>
+        <p>We hope you're loving your book! To thank you for your support, we're offering exclusive bonus resources.</p>
+        <p>All we ask in return is for you to leave a short, honest review on Amazon. Your feedback helps others and allows us to continue creating valuable content.</p>
+        
+        <h2>How to Get Your Free Bonuses:</h2>
+        <ol>
+            <li>Click the button below to leave a review on Amazon.</li>
+            <li>Once you've submitted your review, enter your **Amazon username** in the form below.</li>
+            <li>Click **Submit**, and we’ll send you your bonuses!</li>
+        </ol>
+
+        <!-- Link Amazon (richiede clic per abilitare il form) -->
+        <a href="https://www.amazon.com/review/create-review?asin=YOUR-ASIN" target="_blank" id="amazonLink">Leave a Review on Amazon</a>
+
+        <!-- Form per inviare i dati -->
+        <form id="bonusForm" method="POST">
+            <label for="amazonName">Your Amazon Username:</label>
+            <input type="text" id="amazonName" name="amazonName" required disabled>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required disabled>
+
+            <button type="submit" id="submitButton" disabled>Claim Your Bonuses</button>
+        </form>
+    </div>
+
+    <script>
+        // Autocompila l'email dal parametro URL
+        document.addEventListener("DOMContentLoaded", function() {
+            const params = new URLSearchParams(window.location.search);
+            const email = params.get("email");
+            if (email) {
+                document.getElementById("email").value = decodeURIComponent(email);
+            }
+        });
+
+        // Abilita il form dopo il clic sul link Amazon
+        document.getElementById("amazonLink").addEventListener("click", function() {
+            setTimeout(() => {
+                document.getElementById("amazonName").disabled = false;
+                document.getElementById("email").disabled = false;
+                document.getElementById("submitButton").disabled = false;
+            }, 3000); // Tempo di attesa per assicurarsi che l'utente abbia visitato Amazon
+        });
+
+        // Invia i dati a Make tramite webhook
+        document.getElementById("bonusForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const amazonName = document.getElementById("amazonName").value;
+            const email = document.getElementById("email").value;
+
+            fetch("https://hook.eu2.make.com/YOUR_WEBHOOK_URL", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    amazonName: amazonName,
+                    email: email
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Thank you! Your bonuses will be sent to your email.");
+                document.getElementById("bonusForm").reset();
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+
+</body>
+</html>
