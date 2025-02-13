@@ -9,29 +9,30 @@
 <body>
 
     <div class="container">
-        <h1>Enjoying <i>The GERD Diet Cookbook</i>? 🎉</h1>
-        <p>We hope you're loving your book! To thank you for your support, we're offering exclusive bonus resources.</p>
-        <p>All we ask in return is for you to leave a short, honest review on Amazon. Your feedback helps others and allows us to continue creating valuable content.</p>
+        <h1>Enjoying<br> <i>The GERD Diet Cookbook</i>? 🎉</h1>
+        <p>We hope you're loving your book!</p>
+        <p>All we ask in return is for you to leave a short, honest review on Amazon. Your feedback will be greatly appreciated!</p>
         
         <h2>How to Get Your Free Bonuses:</h2>
         <ol>
             <li>Click the button below to leave a review on Amazon.</li>
-            <li>Once you've submitted your review, enter your **Amazon username** in the form below.</li>
-            <li>Click **Submit**, and we’ll send you your bonuses!</li>
+            <li>Once you've submitted your review, enter your <i>Amazon Username</i> in the form below.</li>
+            <li>Click on <strong>CLAIM YOUR BONUSES</strong>, and we’ll deliver them straight to your inbox!</li>
         </ol>
 
         <!-- Bottone per lasciare la recensione -->
         <button id="amazonButton">Leave a Review on Amazon</button>
 
-        <!-- Form per inviare i dati -->
-        <form id="bonusForm" method="POST">
-            <label for="amazonName">Your Amazon Username:</label>
-            <input type="text" id="amazonName" name="amazonName" required disabled>
+      <!-- Form per inviare i dati -->
+<form id="bonusForm" method="POST">
+    <label for="amazonName">Your Amazon Username:</label>
+    <input type="text" id="amazonName" name="amazonName" required disabled
+           title="Leave a review to enable this field">
 
-            <input type="hidden" id="email" name="email">
+    <input type="hidden" id="email" name="email">
 
-            <button type="submit" id="submitButton" disabled>Claim Your Bonuses</button>
-        </form>
+    <button type="submit" id="submitButton" disabled>Claim Your Bonuses</button>
+</form>
     </div>
 
     <script>
@@ -54,6 +55,17 @@ document.getElementById("amazonButton").addEventListener("click", function() {
     }, 3000);
 });
 
+        // Mostra un alert se il bottone "Claim Your Bonuses" viene cliccato senza inserire l'Amazon Username
+document.getElementById("submitButton").addEventListener("click", function(event) {
+    const amazonName = document.getElementById("amazonName").value;
+
+    if (!amazonName) {
+        event.preventDefault(); // Evita l'invio del form
+        alert("Please enter your Amazon Username before claiming your bonuses.");
+    }
+});
+
+        
 // Invia i dati a Make e verifica che il campo email sia effettivamente presente
 document.getElementById("bonusForm").addEventListener("submit", function(event) {
     event.preventDefault();
