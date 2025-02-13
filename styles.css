@@ -66,16 +66,16 @@ input {
     border-radius: 5px;
 }
 
-/* Bottone disabilitato */
-button:disabled {
-    background: #a3e6a3; /* Verde chiaro */
-    color: #ffffff;
-    cursor: not-allowed;
-}
-
 /* Bottone "Claim Your Bonuses" attivo */
 button#submitButton {
     background: #28a745; /* Verde scuro */
+}
+
+/* Bottone disabilitato (più specifico) */
+button#submitButton:disabled {
+    background: #a3e6a3 !important; /* Verde chiaro */
+    color: #ffffff;
+    cursor: not-allowed;
 }
 
 /* Effetto hover quando il bottone è attivo */
