@@ -47,12 +47,11 @@
 
         // Abilita il form dopo il clic sul bottone Amazon
 document.getElementById("amazonButton").addEventListener("click", function() {
-    window.open("https://www.amazon.com/review/create-review?asin=YOUR-ASIN", "_blank");
-
+     window.location.href = "https://www.amazon.com/review/create-review?asin=YOUR-ASIN";
     setTimeout(() => {
         document.getElementById("amazonName").disabled = false;
         document.getElementById("submitButton").disabled = false;
-    }, 3000);
+    }, 1000);
 });
 
         // Mostra un alert se il bottone "Claim Your Bonuses" viene cliccato senza inserire l'Amazon Username
