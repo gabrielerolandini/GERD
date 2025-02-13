@@ -28,7 +28,7 @@ ol {
     margin: 0 auto;
 }
 
-a {
+button {
     display: inline-block;
     margin: 15px 0;
     padding: 10px 20px;
@@ -38,9 +38,11 @@ a {
     font-size: 16px;
     border-radius: 5px;
     font-weight: bold;
+    border: none;
+    cursor: pointer;
 }
 
-a:hover {
+button:hover {
     background: #cc7a00;
 }
 
@@ -56,22 +58,15 @@ input {
     border-radius: 5px;
 }
 
-button {
-    background: #28a745;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-}
-
 button:disabled {
     background: #ccc;
     cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
+button#submitButton {
+    background: #28a745;
+}
+
+button#submitButton:hover:not(:disabled) {
     background: #218838;
 }
